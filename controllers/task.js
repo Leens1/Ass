@@ -31,7 +31,7 @@ const getById =  (req, res) => {
       
         const task = readFile()[id]
        
-        if (!task) return res.status(404).json({'message':`Task id ${id} not found`});
+        if (!task) return res.status(404).json({'message':`Task id ${id } not found`});
         res.status(200).json({tast:task})
     } catch(e) {
         
@@ -56,7 +56,7 @@ const update_ta = (req, res) => {
     const data = req.body
     const id = req.params.id
     let task = readFile()
-    if (!task[t_id]) return res.status(404).json({'message':'not found'});
+    if (!task[id]) return res.status(404).json({'message':'not found'});
     data['t_id'] = id
     task [id] = data
     writeFile(task)
@@ -66,11 +66,12 @@ const update_ta = (req, res) => {
 const remove_ta = (req, res) => {
     const t_id = req.params.id
     let task = readFile()
- 
-    if (!task[t_id]) {
-        return res.json({'message':`Task id ${t_id} not found`});
-    }    
-    delete task[t_id];
+    if (task[id]) {
+        return res.json({'message':`Task id ${id} is already exists`});
+    }
+
+    
+    delete task[id];
     writeFile(task)
     res.json({'message':'task deleted successfully'})
 }

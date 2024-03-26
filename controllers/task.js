@@ -1,6 +1,7 @@
 const fs = require('fs')
 const uuid = require('uuid')
 const path = require('path');
+const { status } = require('init');
 
 function readFile() {
     const filePath = path.resolve(__dirname, '../Task.json');
@@ -25,17 +26,20 @@ const getAll = (req, res) => {
     }
 }
 
-const getById =  (req, res) => {
+const getByStatus= (req, res) => {
     try {
-        const id = req.params.id
-      
-        const task = readFile()[id]
+        const allStatus = ["Completed", "Peading", "In progress"];
+     
+        let task = readFile()
        
-        if (!task) return res.status(404).json({'message':`Task id ${id } not found`});
-        res.status(200).json({tast:task})
+        if (req.params.status in allStatus){
+            const foundTasks = Object.values(task).filter(ta => ta.status === req.params.status)
+        return res.status(200).json({'message': foundTasks});
+    }return res.status(404).json({'message':`Task status  ${status} not found || non-existing resources`});
+   
     } catch(e) {
         
-        res.status(500).json({ error: e })
+       res.status(500).json({ error: e })
     }
 }
 

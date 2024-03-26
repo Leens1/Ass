@@ -21,9 +21,9 @@ read the full content of the file in memory before returning the data.
 
 To show all the tasks.
 
-#### getById
+#### getByStatus
 
-To show a specific task via his right id.
+To display a particular status.
 
 #### Create
 

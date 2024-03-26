@@ -82,7 +82,7 @@ const remove_ta = (req, res) => {
 
 module.exports = {
     getAll,
-    getById,
+    getByStatus,
     create_ta,
     update_ta,
     remove_ta
